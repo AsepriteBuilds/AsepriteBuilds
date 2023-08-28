@@ -81,7 +81,8 @@ jobs:
         $XVFB bash run-tests.sh
       
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
-        name: build-artifacts
+        name: build-${{ matrix.os }}-${{ matrix.build_type }}-${{ matrix.enable_ui }}
         path: build/
+        retention-days: 2
