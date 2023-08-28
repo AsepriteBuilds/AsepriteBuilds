@@ -54,6 +54,7 @@ jobs:
           -DCMAKE_OSX_DEPLOYMENT_TARGET=10.9 \
           -DENABLE_TESTS=ON \
           -DENABLE_UI=${{ matrix.enable_ui }} \
+          -DLAF_BACKEND=skia \
           -DENABLE_CCACHE=$enable_ccache
     - name: Compiling
       shell: bash
