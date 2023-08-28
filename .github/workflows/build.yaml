@@ -83,6 +83,6 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: build-${{ matrix.os }}-${{ matrix.build_type }}-${{ matrix.enable_ui }}
-        path: build/
+        name: build-${{ matrix.os }}-${{ matrix.build_type }}-ui_${{ matrix.enable_ui }}
+        path: build/bin/
         retention-days: 2
