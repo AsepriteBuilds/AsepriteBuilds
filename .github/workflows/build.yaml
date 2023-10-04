@@ -33,9 +33,11 @@ jobs:
         elif [[ "${{ runner.os }}" == "Windows" ]]; then
           FILE_NAME="Skia-Windows-Release-x64.zip"
         fi
-        curl -s https://api.github.com/repos/aseprite/skia/releases/latest \
-          | jq -r ".assets[] | select(.name==\"$FILE_NAME\") | .browser_download_url" \
-          | xargs -I {} curl -L -o $FILE_NAME {}
+        echo "FILE_NAME=$FILE_NAME"
+        SKIA_URL=$(curl -s https://api.github.com/repos/aseprite/skia/releases/latest \
+          | jq -r ".assets[] | select(.name==\"$FILE_NAME\") | .browser_download_url")
+        echo "SKIA_URL=$SKIA_URL"
+        curl -L -o $FILE_NAME $SKIA_URL
         mkdir -p skia
         if [[ "${{ runner.os }}" == "Windows" ]]; then
           powershell -command "Expand-Archive -Path $FILE_NAME -DestinationPath ./skia"
@@ -84,7 +86,7 @@ jobs:
           -DLAF_BACKEND=skia \
           -DSKIA_DIR=./skia \
           -DSKIA_LIBRARY_DIR=./skia/out/Release-x64 \
-          -DSKIA_LIBRARY=./deps/skia/out/Release-x64/libskia.a \
+          -DSKIA_LIBRARY=./skia/out/Release-x64/libskia.a \
           -DENABLE_CCACHE=$enable_ccache
           
     - name: Compiling
