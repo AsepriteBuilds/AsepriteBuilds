@@ -75,7 +75,7 @@ jobs:
       run: |
         if [[ "${{ runner.os }}" == "Windows" ]] ; then
           export enable_ccache=off
-          export skia_lib=./skia/out/Release-x64/libskia.lib
+          export skia_lib=./skia/out/Release-x64/skia.lib
         else
           export enable_ccache=on
           export skia_lib=./skia/out/Release-x64/libskia.a
