@@ -100,5 +100,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: build-${{ matrix.os }}-${{ matrix.build_type }}-ui_${{ matrix.enable_ui }}
-        path: build/bin/
+        path: |
+          build/bin/aseprite
+          build/bin/data
         retention-days: 2
