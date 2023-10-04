@@ -95,12 +95,20 @@ jobs:
       shell: bash
       run: |
         cd build && ninja
+
+    - name: Delete Test Files
+      shell: bash
+      run: |
+        cd ./build/bin
+        if [[ "${{ runner.os }}" == "Windows" ]]; then
+          powershell -command "Get-ChildItem -Filter '*_tests*' | Remove-Item -Force"
+        else
+          rm -f *_tests*
+        fi
           
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
       with:
         name: build-${{ matrix.os }}-${{ matrix.build_type }}-ui_${{ matrix.enable_ui }}
-        path: |
-          build/bin/aseprite
-          build/bin/data
+        path: build/bin/
         retention-days: 2
