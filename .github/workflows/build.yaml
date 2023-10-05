@@ -1,6 +1,9 @@
 name: build and package
 
 on:
+  push:
+    branches:
+      - 'main'
   workflow_dispatch:
   schedule:
     # * is a special character in YAML so you have to quote this string
@@ -108,7 +111,7 @@ jobs:
         echo '# This file is here so Aseprite works as a portable program' > aseprite.ini
         
     - name: Debug
-      working-directory: build/bin
+      working-directory: build/
       shell: bash
       run: ls -la
           
