@@ -96,15 +96,21 @@ jobs:
       run: |
         cd build && ninja
 
-    - name: Delete Test Files
+    - name: Prepare
+      working-directory: build/bin
       shell: bash
       run: |
-        cd ./build/bin
         if [[ "${{ runner.os }}" == "Windows" ]]; then
           powershell -command "Get-ChildItem -Filter '*_tests*' | Remove-Item -Force"
         else
           rm -f *_tests*
         fi
+        echo '# This file is here so Aseprite works as a portable program' > aseprite.ini
+        
+    - name: Debug
+      working-directory: build/bin
+      shell: bash
+      run: ls -la
           
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
