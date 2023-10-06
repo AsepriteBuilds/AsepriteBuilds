@@ -109,6 +109,11 @@ jobs:
       run: |
         cd build && ninja
 
+    - name: Debug
+      working-directory: build/
+      shell: bash
+      run: ls -laR
+
     - name: Prepare
       shell: bash
       run: |
@@ -121,11 +126,6 @@ jobs:
           cp -r ../lib/* .
         fi
         echo '# This file is here so Aseprite works as a portable program' > aseprite.ini
-        
-    - name: Debug
-      working-directory: build/
-      shell: bash
-      run: ls -laR
           
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
