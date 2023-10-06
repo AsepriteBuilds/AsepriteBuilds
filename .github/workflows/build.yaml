@@ -110,9 +110,9 @@ jobs:
         cd build && ninja
 
     - name: Prepare
-      working-directory: build/bin
       shell: bash
       run: |
+        cd build/bin
         if [[ "${{ runner.os }}" == "Windows" ]]; then
           powershell -command "Get-ChildItem -Filter '*_tests*' | Remove-Item -Force"
           xcopy ..\lib .\ /E /I
