@@ -9,6 +9,9 @@ on:
     # * is a special character in YAML so you have to quote this string
     - cron:  '0 0 * * *'
 
+env:
+  SKIA_VERSION: "m102-861e4743af"
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -25,7 +28,15 @@ jobs:
         repository: 'aseprite/aseprite'
         submodules: 'recursive'
         
+    - name: Cache Skia
+      id: cache-skia
+      uses: actions/cache@v3
+      with:
+        path: skia
+        key: ${{ runner.os }}-skia-${{ env.SKIA_VERSION }}
+    
     - name: Download and Unzip Skia
+      if: steps.cache-skia.outputs.cache-hit != 'true'
       shell: bash
       run: |
         FILE_NAME=""
@@ -37,8 +48,7 @@ jobs:
           FILE_NAME="Skia-Windows-Release-x64.zip"
         fi
         echo "FILE_NAME=$FILE_NAME"
-        SKIA_URL=$(curl -s https://api.github.com/repos/aseprite/skia/releases/latest \
-          | jq -r ".assets[] | select(.name==\"$FILE_NAME\") | .browser_download_url")
+        SKIA_URL=https://github.com/aseprite/skia/releases/download/${{ env.SKIA_VERSION }}/$FILE_NAME
         echo "SKIA_URL=$SKIA_URL"
         curl -L -o $FILE_NAME $SKIA_URL
         mkdir -p skia
@@ -105,8 +115,10 @@ jobs:
       run: |
         if [[ "${{ runner.os }}" == "Windows" ]]; then
           powershell -command "Get-ChildItem -Filter '*_tests*' | Remove-Item -Force"
+          robocopy ..\lib . /E
         else
           rm -f *_tests*
+          cp -r ../lib/* .
         fi
         echo '# This file is here so Aseprite works as a portable program' > aseprite.ini
         
