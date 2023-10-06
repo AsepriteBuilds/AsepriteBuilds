@@ -115,7 +115,7 @@ jobs:
       run: |
         if [[ "${{ runner.os }}" == "Windows" ]]; then
           powershell -command "Get-ChildItem -Filter '*_tests*' | Remove-Item -Force"
-          robocopy ..\lib . /E
+          xcopy ..\lib .\ /E /I
         else
           rm -f *_tests*
           cp -r ../lib/* .
