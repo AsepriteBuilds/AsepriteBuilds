@@ -113,7 +113,7 @@ jobs:
     - name: Debug
       working-directory: build/
       shell: bash
-      run: ls -la
+      run: ls -laR
           
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
