@@ -128,10 +128,10 @@ jobs:
         cd build/bin
         if [[ "${{ runner.os }}" == "Windows" ]]; then
           powershell -command "Get-ChildItem -Filter '*_tests*' | Remove-Item -Force"
-          powershell -command "Get-ChildItem '../openssl/' -Include *libcrypto*1*.dll -Recurse | Copy-Item -Destination ."
+          powershell -command "Get-ChildItem '../../openssl/' -Include *libcrypto*1*.dll -Recurse | Copy-Item -Destination ."
         else
           rm -f *_tests*
-          find ../openssl/ -type f -name '*libcrypto*1*' -exec cp {} . \;
+          find ../../openssl/ -type f -name '*libcrypto*1*' -exec cp {} . \;
         fi
         echo '# This file is here so Aseprite works as a portable program' > aseprite.ini
           
