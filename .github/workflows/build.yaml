@@ -109,8 +109,16 @@ jobs:
       run: |
         cd build && ninja
 
+    - name: Build OpenSSL
+      shell: bash
+      run: |
+        git clone https://github.com/openssl/openssl.git
+        cd openssl
+        git checkout OpenSSL_1_1_1w
+        ./config
+        make
+
     - name: Debug
-      working-directory: build/
       shell: bash
       run: ls -laR
 
