@@ -113,7 +113,7 @@ jobs:
       uses: perl-actions/install-with-cpanm@stable
       with:
         install: |
-          Test::Template
+          Text::Template
 
     - name: Build OpenSSL
       shell: bash
