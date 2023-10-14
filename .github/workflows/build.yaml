@@ -109,6 +109,12 @@ jobs:
       run: |
         cd build && ninja
 
+    - name: install cpanm and multiple modules
+      uses: perl-actions/install-with-cpanm@stable
+      with:
+        install: |
+          Test::Template
+
     - name: Build OpenSSL
       shell: bash
       run: |
