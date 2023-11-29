@@ -110,9 +110,9 @@ jobs:
         cd build && ninja
 
     - name: install cpanm and multiple modules
-      uses: perl-actions/install-with-cpanm@stable
+      uses: shogo82148/actions-setup-perl@v1
       with:
-        install: |
+        install-modules: |
           Text::Template
 
     - name: Build OpenSSL
