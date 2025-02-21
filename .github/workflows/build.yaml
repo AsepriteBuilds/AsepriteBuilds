@@ -30,7 +30,7 @@ jobs:
         
     - name: Cache Skia
       id: cache-skia
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: skia
         key: ${{ runner.os }}-skia-${{ env.SKIA_VERSION }}
@@ -145,7 +145,7 @@ jobs:
         echo '# This file is here so Aseprite works as a portable program' > aseprite.ini
           
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: build-${{ matrix.os }}-${{ matrix.build_type }}-ui_${{ matrix.enable_ui }}
         path: build/bin/
